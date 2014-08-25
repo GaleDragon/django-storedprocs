@@ -73,6 +73,7 @@ Example:
             "sql": "FOR row IN SELECT * FROM blog_post WHERE text ~ '(0|2|4|6|8)\\.$';", # The inside of the stored procedure, NOT the function declaration itself.
             "db": "postgresql_psycopg2", # Eventually I want this to determine the db this is loaded on, instead of the file name.
             "primitive": false, # True if the procedure returns a non-queryset (int, str, whatever)
+            "primitive_type": "int", # Not needed if primitive == False. Will attempt to cast to this type 
             "return_type": "post" # the model name if primitive == False. This links into the Contenttypes framework.
         }
     }]
@@ -85,3 +86,9 @@ After that, you should be able to use the procedures like
 Post.procedures.select_even()
 ```  
 and have it return `Post` objects.
+
+
+Roadmap
+=======
+
+Right now it just works with Sqlite3. I'm busy writing the function templates that each backend will use, starting with PostgrSQL. 
